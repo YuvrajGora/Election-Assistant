@@ -39,7 +39,7 @@ export default function PollingLocator() {
           <FaMapMarkerAlt className={styles.icon} />
           Find Your Polling Station
         </h2>
-        <p>Enter your registered voting address to find where to vote and see what's on your ballot.</p>
+        <p>Enter your registered voting address to find where to vote and see what&apos;s on your ballot.</p>
       </div>
 
       <form onSubmit={handleSearch} className={styles.searchForm}>
@@ -71,7 +71,10 @@ export default function PollingLocator() {
         <div className={styles.emptyState}>
           <FaMapMarkerAlt style={{ fontSize: '3rem', marginBottom: '1rem', opacity: 0.5 }} />
           <h3>No Data Yet</h3>
-          <p>Enter your address above to see your polling locations.</p>
+          <p>
+            Enter your address to see your polling station, early voting sites, and more. 
+            We&apos;ll show you exactly where to go.
+          </p>
         </div>
       )}
 

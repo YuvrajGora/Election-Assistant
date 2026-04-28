@@ -18,7 +18,8 @@ export const AuthProvider = ({ children }) => {
     // If no API key or auth is not initialized, use mock mode for grader testing
     if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY || !auth) {
       console.warn("Firebase Auth not initialized. Running in mock auth mode.");
-      setLoading(false);
+      // Use a microtask to avoid synchronous setState warning
+      Promise.resolve().then(() => setLoading(false));
       return;
     }
 

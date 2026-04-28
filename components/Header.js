@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { FaVoteYea, FaUserCircle, FaSignOutAlt } from 'react-icons/fa';
 import { useAuth } from './AuthProvider';
 import styles from './Header.module.css';
@@ -21,7 +22,13 @@ const Header = () => {
             user ? (
               <div className={styles.userProfile}>
                 {user.photoURL ? (
-                  <img src={user.photoURL} alt={user.displayName} className={styles.avatar} />
+                  <Image 
+                    src={user.photoURL} 
+                    alt={user.displayName || 'User'} 
+                    className={styles.avatar}
+                    width={32}
+                    height={32}
+                  />
                 ) : (
                   <FaUserCircle className={styles.avatarPlaceholder} />
                 )}

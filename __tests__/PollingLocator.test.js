@@ -25,7 +25,7 @@ describe('PollingLocator Component', () => {
     
     // Check for the empty state message
     expect(screen.getByText('No Data Yet')).toBeInTheDocument()
-    expect(screen.getByText('Enter your address above to see your polling locations.')).toBeInTheDocument()
+    expect(screen.getByText(/Enter your address to see your polling station/i)).toBeInTheDocument()
   })
 
   it('initially has the search button disabled', () => {
