@@ -80,7 +80,11 @@ export async function GET(request) {
       throw new Error(data.error?.message || "Failed to fetch civic data");
     }
 
-    return NextResponse.json(data);
+    return NextResponse.json(data, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+      },
+    });
   } catch (error) {
     console.error("Civic API Error:", error);
     return NextResponse.json(

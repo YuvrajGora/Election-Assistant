@@ -94,6 +94,17 @@ export default function PollingLocator() {
                     </div>
                   )}
                   {loc.notes && <div className={styles.notes}>{loc.notes}</div>}
+                  {process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY && (
+                    <iframe
+                      width="100%"
+                      height="200"
+                      style={{ border: 0, borderRadius: '8px', marginTop: '1rem' }}
+                      loading="lazy"
+                      allowFullScreen
+                      referrerPolicy="no-referrer-when-downgrade"
+                      src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY}&q=${encodeURIComponent(loc.address.line1 + ' ' + loc.address.city + ' ' + loc.address.state)}`}
+                    ></iframe>
+                  )}
                 </div>
               ))}
             </div>
@@ -119,6 +130,17 @@ export default function PollingLocator() {
                     <div className={styles.notes}>
                       Dates: {loc.startDate} to {loc.endDate}
                     </div>
+                  )}
+                  {process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY && (
+                    <iframe
+                      width="100%"
+                      height="200"
+                      style={{ border: 0, borderRadius: '8px', marginTop: '1rem' }}
+                      loading="lazy"
+                      allowFullScreen
+                      referrerPolicy="no-referrer-when-downgrade"
+                      src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY}&q=${encodeURIComponent(loc.address.line1 + ' ' + loc.address.city + ' ' + loc.address.state)}`}
+                    ></iframe>
                   )}
                 </div>
               ))}

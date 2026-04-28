@@ -1,7 +1,15 @@
+import dynamic from 'next/dynamic'
 import styles from './page.module.css'
 import { FaRobot, FaMapMarkedAlt, FaCalendarCheck } from 'react-icons/fa'
-import ChatAssistant from '@/components/ChatAssistant'
-import PollingLocator from '@/components/PollingLocator'
+
+const ChatAssistant = dynamic(() => import('@/components/ChatAssistant'), {
+  ssr: false,
+  loading: () => <div className={styles.loadingPlaceholder}>Loading AI Assistant...</div>
+})
+
+const PollingLocator = dynamic(() => import('@/components/PollingLocator'), {
+  loading: () => <div className={styles.loadingPlaceholder}>Loading Polling Locator...</div>
+})
 
 export default function Home() {
   return (
