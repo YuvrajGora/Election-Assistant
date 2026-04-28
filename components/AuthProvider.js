@@ -1,8 +1,17 @@
 'use client';
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { auth, googleProvider, signInWithPopup, signOut } from '@/lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
+/**
+ * @typedef {Object} AuthContextType
+ * @property {Object|null} user - The current authenticated user
+ * @property {boolean} loading - Loading state of the authentication
+ * @property {Function} login - Method to trigger Google Login
+ * @property {Function} logout - Method to trigger Logout
+ */
+
+/** @type {React.Context<AuthContextType>} */
 const AuthContext = createContext({
   user: null,
   loading: true,
@@ -10,6 +19,15 @@ const AuthContext = createContext({
   logout: () => {},
 });
 
+/**
+ * AuthProvider Component.
+ * Manages the global authentication state using Firebase.
+ * Supports a "Mock Mode" if Firebase configuration is missing.
+ * 
+ * @param {Object} props - Component props
+ * @param {React.ReactNode} props.children - Child elements
+ * @returns {JSX.Element} The AuthProvider component
+ */
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -31,7 +49,10 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const login = async () => {
+  /**
+   * Triggers the Google Sign-In popup or enters Mock Mode.
+   */
+  const login = useCallback(async () => {
     if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY) {
       // Mock login for demo purposes
       setUser({
@@ -46,9 +67,12 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error("Login failed:", error);
     }
-  };
+  }, []);
 
-  const logout = async () => {
+  /**
+   * Signs the user out.
+   */
+  const logout = useCallback(async () => {
     if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY) {
       setUser(null);
       return;
@@ -58,7 +82,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error("Logout failed:", error);
     }
-  };
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, loading, login, logout }}>
@@ -67,4 +91,9 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+/**
+ * Custom hook to access the authentication context.
+ * 
+ * @returns {AuthContextType} The auth context value
+ */
 export const useAuth = () => useContext(AuthContext);

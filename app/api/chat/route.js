@@ -9,6 +9,13 @@ Your goals:
 4. If a user asks for specific dates or local laws, advise them that rules vary by state/county and recommend they check their local election office website, though you can provide general federal guidelines.
 5. Keep your answers concise, well-formatted, and easy to read. Use bullet points when appropriate.`;
 
+/**
+ * POST handler for the AI Chat Assistant.
+ * Securely communicates with the Google Gemini API to provide non-partisan election guidance.
+ * 
+ * @param {Request} request - The incoming Next.js request
+ * @returns {Promise<NextResponse>} JSON response with the AI's reply
+ */
 export async function POST(request) {
   try {
     const { message, history } = await request.json();

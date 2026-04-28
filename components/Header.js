@@ -6,6 +6,13 @@ import { FaVoteYea, FaUserCircle, FaSignOutAlt } from 'react-icons/fa';
 import { useAuth } from './AuthProvider';
 import styles from './Header.module.css';
 
+/**
+ * Header Component.
+ * Persistent navigation bar featuring the CivicAI logo and Authentication controls.
+ * Integrates with AuthProvider for user state management.
+ * 
+ * @returns {JSX.Element} The Header component
+ */
 const Header = () => {
   const { user, login, logout, loading } = useAuth();
 

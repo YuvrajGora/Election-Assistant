@@ -1,9 +1,15 @@
 'use client'
-
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { FaRobot, FaPaperPlane } from 'react-icons/fa'
 import styles from './ChatAssistant.module.css'
 
+/**
+ * AI Chat Assistant Component.
+ * Provides a conversational interface for election-related queries using Google Gemini.
+ * Includes auto-scrolling, loading states, and suggested queries.
+ * 
+ * @returns {JSX.Element} The ChatAssistant component
+ */
 export default function ChatAssistant() {
   const [messages, setMessages] = useState([
     { role: 'assistant', content: 'Hi! I am CivicAI. I can help you understand the election process, check registration deadlines, or find your polling station. How can I assist you today?' }
@@ -12,14 +18,22 @@ export default function ChatAssistant() {
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef(null)
 
-  const scrollToBottom = () => {
+  /**
+   * Scrolls the chat container to the latest message.
+   */
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
+  }, [])
 
   useEffect(() => {
     scrollToBottom()
-  }, [messages])
+  }, [messages, scrollToBottom])
 
+  /**
+   * Handles the form submission and communicates with the chat API.
+   * 
+   * @param {React.FormEvent} e - The form event
+   */
   const handleSend = async (e) => {
     e?.preventDefault()
     if (!input.trim() || isLoading) return
@@ -51,10 +65,14 @@ export default function ChatAssistant() {
     }
   }
 
-  const handleSuggestionClick = (suggestion) => {
+  /**
+   * Populates the input field with a suggested query.
+   * 
+   * @param {string} suggestion - The suggested text
+   */
+  const handleSuggestionClick = useCallback((suggestion) => {
     setInput(suggestion)
-    // We don't automatically send, giving the user a chance to read/edit
-  }
+  }, [])
 
   return (
     <div className={styles.chatContainer}>

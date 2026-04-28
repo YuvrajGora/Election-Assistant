@@ -1,16 +1,27 @@
 'use client'
-
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { FaMapMarkerAlt, FaSearch, FaSpinner, FaExclamationCircle, FaClock } from 'react-icons/fa'
 import styles from './PollingLocator.module.css'
 
+/**
+ * Polling Locator Component.
+ * Allows users to search for polling locations and early voting sites by address.
+ * Integrates with the Google Civic Information API and Google Maps Embed API.
+ * 
+ * @returns {JSX.Element} The PollingLocator component
+ */
 export default function PollingLocator() {
   const [address, setAddress] = useState('')
   const [data, setData] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const handleSearch = async (e) => {
+  /**
+   * Fetches civic data for the provided address.
+   * 
+   * @param {React.FormEvent} e - The form submission event
+   */
+  const handleSearch = useCallback(async (e) => {
     e.preventDefault()
     if (!address.trim()) return
 
@@ -30,7 +41,7 @@ export default function PollingLocator() {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [address])
 
   return (
     <div className={`${styles.locatorContainer} glass-panel`} id="polling">

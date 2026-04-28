@@ -1,5 +1,13 @@
 import { NextResponse } from "next/dist/server/web/spec-extension/response";
 
+/**
+ * GET handler for the Civic Information API.
+ * Fetches polling locations and election data from Google Civic API.
+ * Includes HTTP caching for optimized performance.
+ * 
+ * @param {Request} request - The incoming Next.js request
+ * @returns {Promise<NextResponse>} JSON response with election data
+ */
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const address = searchParams.get('address');
