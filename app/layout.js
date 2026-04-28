@@ -1,7 +1,7 @@
 import { Inter, Outfit } from 'next/font/google'
 import './globals.css'
-import { AuthProvider } from '@/components/AuthProvider'
-import Header from '@/components/Header'
+import { AuthProvider } from '../components/AuthProvider'
+import Header from '../components/Header'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' })

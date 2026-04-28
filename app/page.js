@@ -1,13 +1,15 @@
+'use client';
 import dynamic from 'next/dynamic'
 import styles from './page.module.css'
 import { FaRobot, FaMapMarkedAlt, FaCalendarCheck } from 'react-icons/fa'
 
-const ChatAssistant = dynamic(() => import('@/components/ChatAssistant'), {
+const ChatAssistant = dynamic(() => import('../components/ChatAssistant'), {
   ssr: false,
   loading: () => <div className={styles.loadingPlaceholder}>Loading AI Assistant...</div>
 })
 
-const PollingLocator = dynamic(() => import('@/components/PollingLocator'), {
+const PollingLocator = dynamic(() => import('../components/PollingLocator'), {
+  ssr: false,
   loading: () => <div className={styles.loadingPlaceholder}>Loading Polling Locator...</div>
 })
 
